@@ -1,0 +1,16 @@
+name: Self-test
+
+on:
+  - pull_request
+  - push
+
+jobs:
+  no-inputs:
+    runs-on: ubuntu-latest
+    name: No inputs
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Lint
+        uses: firehed/lint-php-action@main

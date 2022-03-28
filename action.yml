@@ -1,0 +1,12 @@
+name: 'Lint PHP'
+description: 'Greet someone'
+inputs:
+  # Coming soon...
+  # who-to-greet:  # id of input
+  #   description: 'Who to greet'
+  #   required: true
+  #   default: 'World'
+runs:
+  using: "composite"
+  steps:
+    - run: echo Hello world
