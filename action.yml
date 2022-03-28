@@ -1,12 +1,20 @@
 name: 'Lint PHP'
+
 description: 'Greet someone'
+
 inputs:
-  # Coming soon...
-  # who-to-greet:  # id of input
-  #   description: 'Who to greet'
-  #   required: true
-  #   default: 'World'
+  php-version:
+    description: 'Version of PHP'
+    required: true
+    default: 'latest'
+
 runs:
   using: "composite"
   steps:
-    - run: echo Hello world
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ inputs.php-version }}
+
+    - run: php -v
