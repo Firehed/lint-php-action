@@ -1,7 +1,5 @@
 name: 'Lint PHP'
 
-description: 'Greet someone'
-
 inputs:
   php-version:
     description: 'Version of PHP'
