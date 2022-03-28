@@ -17,3 +17,6 @@ runs:
 
     - run: php -v
       shell: bash
+
+    - run: env
+      shell: bash
