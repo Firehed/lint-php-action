@@ -18,3 +18,4 @@ runs:
         php-version: ${{ inputs.php-version }}
 
     - run: php -v
+      shell: bash
