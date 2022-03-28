@@ -2,7 +2,7 @@ name: Self-test
 
 on:
   - pull_request
-  - push
+  # - push
 
 jobs:
   no-inputs:
