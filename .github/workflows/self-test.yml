@@ -1,8 +1,12 @@
 name: Self-test
 
 on:
-  - pull_request
-  # - push
+  pull_request:
+    # All PRs
+  push:
+    branches:
+      - main
+
 
 jobs:
   no-inputs:
