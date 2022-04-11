@@ -47,6 +47,7 @@ foreach ($rii as $file => $fileinfo) {
     foreach ($output as $line) {
         // Something like this:
         // "Parse error: syntax error, unexpected token "private", expecting "{" in src/someFile.php on line 23"
+        var_dump($line);
         $matched = preg_match("/Parse error:\s+(?'text'.*) in (?'file'.*) on line (?'line'\d+)$/", $line, $matches);
         if ($matched) {
             echo ":error file=$file,line={$matches['line']}::{$matches['text']}\n";
