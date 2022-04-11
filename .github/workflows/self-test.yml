@@ -39,4 +39,4 @@ jobs:
       - name: Lint
         uses: ./
         with:
-          file-extensions: 'php, inc, "'
+          file-extensions: 'php5, inc'
