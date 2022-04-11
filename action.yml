@@ -6,6 +6,11 @@ inputs:
     required: true
     default: 'latest'
 
+  file-extensions:
+    description: Comma-separated list of file extensions to lint
+    required: false
+    default: php
+
 runs:
   using: "composite"
   steps:
@@ -15,12 +20,6 @@ runs:
       with:
         php-version: ${{ inputs.php-version }}
 
-    - run: php -v
-      shell: bash
-
-    - run: env
-      shell: bash
-
     - name: Run check script
       shell: bash
-      run: php ${{ github.action_path }}/check.php
+      run: php ${{ github.action_path }}/check.php --extensions="${{ inputs.file-extensions }}"
