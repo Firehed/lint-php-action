@@ -14,3 +14,15 @@ jobs:
 
       - name: Lint
         uses: ./
+
+  other-extensions:
+    runs-on: ubuntu-latest
+    name: Other file extensions
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Lint
+        uses: ./
+        with:
+          file-extensions: 'php, inc, "'
