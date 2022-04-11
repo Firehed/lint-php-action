@@ -22,4 +22,4 @@ runs:
 
     - name: Run check script
       shell: bash
-      run: php ${{ github.action_path }}/check.php --extensions="${{ inputs.file-extensions }}"
+      run: php ${{ github.action_path }}/check.php --inputs=${{ toJSON(inputs) }}
