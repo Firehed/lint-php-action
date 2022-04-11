@@ -9,6 +9,18 @@ function debug(string $message)
     echo "::debug::$message\n";
 }
 
+function getLineCount(string $file): int
+{
+    // A simple `wc -l` may be faster but less portable
+    $fh = fopen($file, 'r');
+    $lines = 0;
+    while ($line = fgets($fh)) {
+        $lines++;
+    }
+    fclose($fh);
+    return $lines;
+}
+
 // Create a map of normalized file extensions
 $extensionsToCheck = array_flip(array_map('strtolower', array_map('trim', explode(',', getenv('INPUT_FILE_EXTENSIONS')))));
 
@@ -50,8 +62,10 @@ foreach ($rii as $file => $fileinfo) {
         $matched = preg_match("/Parse error:\s+(?'text'.*) in (?'file'.*) on line (?'line'\d+)$/", $line, $matches);
         if ($matched) {
             $relativePath = mb_substr($file, 2); // Trim leading `./`
-            echo ":error file=$relativePath,line={$matches['line']}::{$matches['text']}\n";
-            echo "::error file=$relativePath,line={$matches['line']}::{$matches['text']}\n";
+            // PHP can report an error on a line past EOF if the syntax error
+            // occurs on the last line of code.
+            $line = min($matches['line'], getLineCount($file));
+            echo "::error file=$relativePath,line={$line}::{$matches['text']}\n";
             $printed = true;
             break;
         }
