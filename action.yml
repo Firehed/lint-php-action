@@ -1,12 +1,27 @@
 name: 'Lint PHP'
-description: 'Greet someone'
+
 inputs:
-  # Coming soon...
-  # who-to-greet:  # id of input
-  #   description: 'Who to greet'
-  #   required: true
-  #   default: 'World'
+  php-version:
+    description: 'Version of PHP'
+    required: true
+    default: 'latest'
+
+  file-extensions:
+    description: Comma-separated list of file extensions to lint
+    required: false
+    default: php
+
 runs:
   using: "composite"
   steps:
-    - run: echo Hello world
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ inputs.php-version }}
+
+    - name: Run check script
+      shell: bash
+      env:
+        INPUT_FILE_EXTENSIONS: ${{ inputs.file-extensions }}
+      run: php ${{ github.action_path }}/check.php

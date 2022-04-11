@@ -1,16 +1,53 @@
 name: Self-test
 
 on:
-  - pull_request
-  - push
+  pull_request:
+    # All PRs
+  push:
+    branches:
+      - main
+
 
 jobs:
   no-inputs:
     runs-on: ubuntu-latest
     name: No inputs
+    strategy:
+      matrix:
+        php-version:
+          - '7.0'
+          - '7.1'
+          - '7.2'
+          - '7.3'
+          - '7.4'
+          - '8.0'
+          - '8.1'
+          - '8.2'
+
     steps:
       - name: Check out code
         uses: actions/checkout@v2
 
       - name: Lint
-        uses: firehed/lint-php-action@main
+        id: self-test
+        continue-on-error: true
+        uses: ./
+        with:
+          php-version: ${{ matrix.php-version }}
+
+      - name: Expect self-test to have failed
+        if: steps.self-test.outcome != 'failure'
+        shell: bash
+        run: exit 1
+
+  other-extensions:
+    runs-on: ubuntu-latest
+    name: Other file extensions
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Lint
+        uses: ./
+        with:
+          file-extensions: 'php5, inc'
