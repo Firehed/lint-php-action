@@ -22,4 +22,5 @@ runs:
       shell: bash
 
     - name: Run check script
+      shell: bash
       run: php ${{ github.action_path }}/check.php
