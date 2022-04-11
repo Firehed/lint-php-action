@@ -24,4 +24,4 @@ runs:
       shell: bash
       env:
         INPUT_FILE_EXTENSIONS: ${{ inputs.file-extensions }}
-      run: php ${{ github.action_path }}/check.php --inputs=${{ toJSON(inputs) }}
+      run: php ${{ github.action_path }}/check.php
