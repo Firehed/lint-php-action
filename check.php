@@ -50,6 +50,7 @@ foreach ($rii as $file => $fileinfo) {
         $matched = preg_match("/Parse error:\s+(?'text'.*) in (?'file'.*) on line (?'line'\d+)$/", $line, $matches);
         if ($matched) {
             $relativePath = mb_substr($file, 2); // Trim leading `./`
+            echo ":error file=$relativePath,line={$matches['line']}::{$matches['text']}\n";
             echo "::error file=$relativePath,line={$matches['line']}::{$matches['text']}\n";
             $printed = true;
             break;
