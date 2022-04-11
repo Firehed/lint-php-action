@@ -28,6 +28,7 @@ foreach ($rii as $file => $fileinfo) {
         continue;
     }
 
+    debug("Checking $file");
     $command = sprintf('php -l %s 2>&1', escapeshellarg($file));
     $output = []; // Must reset inside each loop; exec appends rather than sets
     $ret = exec($command, $output, $exitCode);
