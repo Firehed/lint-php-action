@@ -23,5 +23,5 @@ runs:
     - name: Run check script
       shell: bash
       env:
-        INPUT_FILE_EXTENSIONS: ${{ inpits.file-extensions }}
+        INPUT_FILE_EXTENSIONS: ${{ inputs.file-extensions }}
       run: php ${{ github.action_path }}/check.php --inputs=${{ toJSON(inputs) }}
