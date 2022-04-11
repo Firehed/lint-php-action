@@ -8,12 +8,26 @@ jobs:
   no-inputs:
     runs-on: ubuntu-latest
     name: No inputs
+    strategy:
+      matrix:
+        php-version:
+          - '7.0'
+          - '7.1'
+          - '7.2'
+          - '7.3'
+          - '7.4'
+          - '8.0'
+          - '8.1'
+          - '8.2'
+
     steps:
       - name: Check out code
         uses: actions/checkout@v2
 
       - name: Lint
         uses: ./
+        with:
+          php-version: ${{ matrix.php-version }}
 
   other-extensions:
     runs-on: ubuntu-latest
