@@ -20,3 +20,6 @@ runs:
 
     - run: env
       shell: bash
+
+    - name: Run check script
+      run: php ${{ github.action_path }}/check.php
