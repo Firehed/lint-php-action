@@ -1,4 +1,8 @@
 name: 'Lint PHP'
+description: Run PHP's built-in syntax check on files.
+branding:
+  icon: check-circle
+  color: purple
 
 inputs:
   php-version:
