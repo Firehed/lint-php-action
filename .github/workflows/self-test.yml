@@ -25,9 +25,16 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Lint
+        id: self-test
+        continue-on-error: true
         uses: ./
         with:
           php-version: ${{ matrix.php-version }}
+
+      - name: Expect self-test to have failed
+        if: steps.self-test.outcome != 'failure'
+        shell: bash
+        run: exit 1
 
   other-extensions:
     runs-on: ubuntu-latest
