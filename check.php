@@ -18,10 +18,12 @@ debug("File extensions: " . implode(', ', array_keys($extensionsToCheck)));
 $rdi = new RecursiveDirectoryIterator('.', RDI::SKIP_DOTS);
 $rii = new RecursiveIteratorIterator($rdi);
 
+$checkCount = $skipCount = 0;
 $exit = 0;
 
 foreach ($rii as $file => $fileinfo) {
     if (!array_key_exists($fileinfo->getExtension(), $extensionsToCheck)) {
+        $skipCount++;
         debug("Skipping $file");
         continue;
     }
@@ -29,6 +31,9 @@ foreach ($rii as $file => $fileinfo) {
     $command = sprintf('php -l %s 2>&1', escapeshellarg($file));
     $output = []; // Must reset inside each loop; exec appends rather than sets
     $ret = exec($command, $output, $exitCode);
+
+    $checkCount++;
+
     if ($exitCode === 0) {
         // Lint OK - immediately move to the next file.
         continue;
@@ -54,5 +59,7 @@ foreach ($rii as $file => $fileinfo) {
     }
 
 }
+
+echo "Checked $checkCount files, skipped $skipCount\n";
 
 exit($exit);
